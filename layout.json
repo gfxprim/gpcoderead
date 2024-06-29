@@ -1,0 +1,18 @@
+{
+ "info": {"version": 1, "license": "GPL-2.0-or-later"},
+ "layout": {
+  "type": "vbox", "align": "fill", "border": "bottom",
+  "widgets": [
+   {"type": "pixmap", "w": 320, "h": 240, "align": "fill", "uid": "cam_view"},
+   {"type": "hbox", "align": "fill", "border": "vert",
+    "widgets": [
+     {"type": "label", "tattr": "bold", "text": "Code:"},
+     {"type": "label", "uid": "result", "tattr": "center", "align": "fill"},
+     {"type": "button", "label": "To clipboard", "on_event": "copy_to_clipboard"}
+    ],
+    "cell-fill": "0, 1, 0"
+   }
+  ],
+  "cell-fill": "1, 0"
+ }
+}
