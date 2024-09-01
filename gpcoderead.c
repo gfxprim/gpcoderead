@@ -18,7 +18,7 @@ static zbar_image_t *zimg;
 
 static enum gp_poll_event_ret grabber_event(gp_fd GP_UNUSED(*self))
 {
-	gp_pixmap *dst = cam_view->pixmap->pixmap;
+	gp_pixmap *dst = gp_widget_pixmap_get(cam_view);
 
 	gp_grabber_poll(grabber);
 
@@ -72,14 +72,15 @@ static gp_fd grabber_fd = {
 static int cam_view_on_event(gp_widget_event *ev)
 {
 	gp_widget *self = ev->self;
+	gp_pixmap *new_pixmap;
 
 	switch (ev->type) {
 	case GP_WIDGET_EVENT_RESIZE:
-		gp_pixmap_free(self->pixmap->pixmap);
-		self->pixmap->pixmap = gp_pixmap_alloc(self->w, self->h, ev->ctx->pixel_type);
+		new_pixmap = gp_pixmap_alloc(self->w, self->h, ev->ctx->pixel_type);
+		gp_pixmap_free(gp_widget_pixmap_set(self, new_pixmap));
 	/* fallthrough */
 	case GP_WIDGET_EVENT_COLOR_SCHEME:
-		gp_fill(self->pixmap->pixmap, ev->ctx->bg_color);
+		gp_fill(gp_widget_pixmap_get(self), ev->ctx->bg_color);
 		gp_widget_pixmap_redraw_all(cam_view);
 	break;
 	}
