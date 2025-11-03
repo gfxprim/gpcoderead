@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
 	grabber = gp_grabber_v4l2_init("/dev/video0", 640, 480);
 	if (grabber) {
 		grabber_fd.fd = grabber->fd;
-		gp_widget_poll_add(&grabber_fd);
+		gp_app_poll_add(&grabber_fd);
 		gp_grabber_start(grabber);
 	}
 
